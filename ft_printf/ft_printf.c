@@ -13,7 +13,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-int	ft_printf(const char *fmt, ...)
+int	
+ft_printf(const char *fmt, ...)
 {
 	int		count;
 	va_list	args;
@@ -35,7 +36,8 @@ int	ft_printf(const char *fmt, ...)
 	return (count);
 }
 
-int	main(void)
+int	
+main(void)
 {
 	int	ch;
 	int	var;

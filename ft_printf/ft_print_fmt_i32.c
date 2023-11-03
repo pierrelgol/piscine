@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-int	ft_print_fmt_i32(va_list *arg)
+int	
+ft_print_fmt_i32(va_list *arg)
 {
 	int	i32;
 

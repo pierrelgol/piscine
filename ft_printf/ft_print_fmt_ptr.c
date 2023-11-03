@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-int	ft_print_fmt_ptr(va_list *arg)
+int	
+ft_print_fmt_ptr(va_list *arg)
 {
 	write(1, "0x", 2);
 	return (2 + ft_print_fmt_lhex(arg));

@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-static int	ft_strlen(char *str)
+static int	
+ft_strlen(char *str)
 {
 	char	*pstr;
 
@@ -22,7 +23,8 @@ static int	ft_strlen(char *str)
 	return (pstr - str);
 }
 
-int	ft_print_fmt_str(va_list *arg)
+int	
+ft_print_fmt_str(va_list *arg)
 {
 	char	*str;
 

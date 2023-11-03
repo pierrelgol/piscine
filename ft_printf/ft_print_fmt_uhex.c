@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-int	ft_print_fmt_uhex(va_list *arg)
+int	
+ft_print_fmt_uhex(va_list *arg)
 {
 	uint64_t	lhex;
 
