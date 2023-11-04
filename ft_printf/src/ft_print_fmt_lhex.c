@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_fmt_str.c                                 :+:      :+:    :+:   */
+/*   ft_print_fmt_lhex.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pollivie <pollivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 17:49:52 by pollivie          #+#    #+#             */
-/*   Updated: 2023/11/03 17:49:54 by pollivie         ###   ########.fr       */
+/*   Created: 2023/11/03 17:49:38 by pollivie          #+#    #+#             */
+/*   Updated: 2023/11/03 17:49:39 by pollivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../lib/ft_printf.h"
 
-static int	ft_strlen(char *str)
+int ft_print_fmt_lhex(va_list *arg)
 {
-	char	*pstr;
+	uint32_t lhex;
 
-	pstr = str;
-	while (*pstr)
-		++pstr;
-	return (pstr - str);
-}
-
-int	ft_print_fmt_str(va_list *arg)
-{
-	char	*str;
-
-	str = va_arg(*arg, char *);
-	if (str == NULL)
-		return (write(1, "(null)", 6));
-	else
-		return (write(1, str, ft_strlen(str)));
+	lhex = va_arg(*arg, uint32_t);
+	return (ft_uputnbr_base((uint32_t) lhex, "0123456789abcdef", 16));
 }

@@ -10,50 +10,49 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC     = cc
-CFLAGS = -Wall -Wextra -Werror -O3
-LDFLAGS = -shared
+CC      = cc
+CFLAGS  = -Wall -Wextra -Werror -O2 -g3
 
-SRC    = ft_printf.c			\
-		 ft_fsm.c 				\
-		 ft_putnbr_base.c 		\
-		 ft_print_fmt_i32.c 	\
-		 ft_print_fmt_u32.c		\
-		 ft_print_fmt_i8.c		\
-		 ft_print_fmt_str.c		\
-		 ft_print_fmt_ptr.c		\
-		 ft_print_fmt_lhex.c	\
-		 ft_print_fmt_uhex.c	\
+SRC_DIR = src
+SRC     = $(SRC_DIR)/ft_printf.c \
+          $(SRC_DIR)/ft_fsm.c \
+          $(SRC_DIR)/ft_putnbr_base.c \
+          $(SRC_DIR)/ft_print_fmt_i32.c \
+          $(SRC_DIR)/ft_print_fmt_u32.c \
+          $(SRC_DIR)/ft_print_fmt_i8.c \
+          $(SRC_DIR)/ft_print_fmt_str.c \
+          $(SRC_DIR)/ft_print_fmt_ptr.c \
+          $(SRC_DIR)/ft_print_fmt_lhex.c \
+          $(SRC_DIR)/ft_print_fmt_uhex.c
 
-OBJDIR = obj
-OBJS   = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
+OBJ_DIR = obj
+OBJS    = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
-LIB    = ft_printf.h
+INC_DIR = lib
+INC     = -I $(INC_DIR)
+LIB     = $(INC_DIR)/ft_printf.h
+
 STATIC_NAME = libftprintf.a
-SHARED_NAME = libftprintf.so
 
 .PHONY: all clean fclean re
 
-all: $(STATIC_NAME) $(SHARED_NAME)
+all: $(STATIC_NAME)
 
 $(STATIC_NAME): $(OBJS)
-	ar rcs $(STATIC_NAME) $(OBJS)
+		ar rcs $(STATIC_NAME) $(OBJS)
 
-$(SHARED_NAME): $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) -o $(SHARED_NAME)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+		$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-$(OBJDIR)/%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJS): | $(OBJ_DIR)
 
-$(OBJS): | $(OBJDIR)
-
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
+$(OBJ_DIR):
+		mkdir -p $(OBJ_DIR)
 
 clean:
-	rm -rf $(OBJDIR)
+		rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(STATIC_NAME) $(SHARED_NAME)
+		rm -f $(STATIC_NAME)
 
 re: fclean all

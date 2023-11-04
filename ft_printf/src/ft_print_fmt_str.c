@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_fmt_i8.c                                  :+:      :+:    :+:   */
+/*   ft_print_fmt_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pollivie <pollivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 17:38:16 by pollivie          #+#    #+#             */
-/*   Updated: 2023/11/03 17:38:18 by pollivie         ###   ########.fr       */
+/*   Created: 2023/11/03 17:49:52 by pollivie          #+#    #+#             */
+/*   Updated: 2023/11/03 17:49:54 by pollivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../lib/ft_printf.h"
 
-int	ft_print_fmt_i8(va_list *arg)
+static int ft_strlen(char *str)
 {
-	int	i8;
+	char *pstr;
 
-	i8 = (int)va_arg(*arg, int);
-	return (write(1, &i8, 1));
+	pstr = str;
+	while (*pstr)
+		++pstr;
+	return (pstr - str);
+}
+
+int ft_print_fmt_str(va_list *arg)
+{
+	char *str;
+
+	str = va_arg(*arg, char *);
+	if (str == NULL)
+		return (write(1, "(null)", 6));
+	else
+		return (write(1, str, ft_strlen(str)));
 }

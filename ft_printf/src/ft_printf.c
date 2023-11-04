@@ -9,15 +9,13 @@
 /*   Updated: 2023/11/03 17:03:22 by pollivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
-#include <stdarg.h>
-#include <stdio.h>
+#include "../lib/ft_printf.h"
 
-int	ft_printf(const char *fmt, ...)
+int ft_printf(const char *fmt, ...)
 {
-	int		count;
-	va_list	args;
-	t_fsm	fsm;
+	int     count;
+	va_list args;
+	t_fsm   fsm;
 
 	count = 0;
 	va_start(args, fmt);
@@ -29,7 +27,7 @@ int	ft_printf(const char *fmt, ...)
 		fsm.curr = fsm.get_curr_state(fsm.curr, *fsm.fmt);
 		fsm.use_print_fmt = fsm.get_print_fmt(fsm.curr);
 		if (fsm.curr == FSM_PRINT_CHAR)
-			count += fsm.use_print_fmt((va_list *)fsm.fmt);
+			count += fsm.use_print_fmt((va_list *) fsm.fmt);
 		else
 			count += (fsm.use_print_fmt(&args));
 		fsm.fmt++;

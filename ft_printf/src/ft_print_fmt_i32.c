@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_fmt_u32.c                                 :+:      :+:    :+:   */
+/*   ft_print_fmt_i32.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pollivie <pollivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 17:50:02 by pollivie          #+#    #+#             */
-/*   Updated: 2023/11/03 17:50:03 by pollivie         ###   ########.fr       */
+/*   Created: 2023/11/03 17:40:47 by pollivie          #+#    #+#             */
+/*   Updated: 2023/11/03 17:40:48 by pollivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../lib/ft_printf.h"
 
-int	ft_print_fmt_u32(va_list *arg)
+int ft_print_fmt_i32(va_list *arg)
 {
-	uint32_t	u32;
+	int32_t i32;
 
-	u32 = va_arg(*arg, uint32_t);
-	return (ft_uputnbr_base((uint32_t)u32, "0123456789", 10));
+	i32 = va_arg(*arg, int32_t);
+	return (ft_iputnbr_base((int32_t) i32, "0123456789", 10));
 }

@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../lib/ft_printf.h"
 
-static t_print_fmt	g_dispatch_table[32];
+static t_print_fmt g_dispatch_table[32];
 
-struct s_fsm	fsm_init(const char *fmt)
+struct s_fsm fsm_init(const char *fmt)
 {
-	t_fsm	self;
+	t_fsm self;
 
 	self.count = 0;
 	self.fmt = fmt;
@@ -34,18 +34,18 @@ struct s_fsm	fsm_init(const char *fmt)
 	return (self);
 }
 
-int	fsm_eat_char(va_list *arg)
+int fsm_eat_char(va_list *arg)
 {
-	(void)arg;
+	(void) arg;
 	return (0);
 }
 
-int	fsm_put_char(va_list *arg)
+int fsm_put_char(va_list *arg)
 {
 	return (write(1, arg, 1));
 }
 
-enum e_state	fsm_interpret(enum e_state prev, int ch)
+enum e_state fsm_interpret(enum e_state prev, int ch)
 {
 	if (ch == '\0' || prev == FSM_STOP)
 		return (FSM_STOP);
@@ -71,7 +71,7 @@ enum e_state	fsm_interpret(enum e_state prev, int ch)
 		return (FSM_PRINT_CHAR);
 }
 
-t_print_fmt	fsm_dispatch(enum e_state curr)
+t_print_fmt fsm_dispatch(enum e_state curr)
 {
 	return (g_dispatch_table[curr]);
 }
