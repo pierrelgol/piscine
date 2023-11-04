@@ -12,8 +12,7 @@
 
 #include "ft_printf.h"
 
-static int	
-ft_strlen(char *str)
+static int	ft_strlen(char *str)
 {
 	char	*pstr;
 
@@ -23,11 +22,13 @@ ft_strlen(char *str)
 	return (pstr - str);
 }
 
-int	
-ft_print_fmt_str(va_list *arg)
+int	ft_print_fmt_str(va_list *arg)
 {
 	char	*str;
 
 	str = va_arg(*arg, char *);
-	return (write(1, str, ft_strlen(str)));
+	if (str == NULL)
+		return (write(1, "(null)", 6));
+	else
+		return (write(1, str, ft_strlen(str)));
 }

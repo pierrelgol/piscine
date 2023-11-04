@@ -13,18 +13,40 @@
 #include "ft_printf.h"
 #include <stdint.h>
 
-int	_ft_number_radix_len(int64_t num, int radix)
-{
-	if (num == 0)
-		return (0);
-	return (1 + _ft_number_radix_len(num / radix, radix));
-}
-
-int	_ft_putnbr_base(int64_t num, char *base, int radix)
+int	ft_uputnbr_base(uint64_t num, char *base, int radix)
 {
 	int		i;
 	int		len;
-	char	result[128];
+	char	result[64];
+
+	len = 0;
+	if (num < 0)
+	{
+		len += write(1, "-", 1);
+		num = -num;
+	}
+	i = 0;
+	while (num > 0)
+	{
+		result[i] = base[num % radix];
+		num /= radix;
+		i++;
+	}
+	if (i == 0)
+		len += write(1, "0", 1);
+	else
+	{
+		while (i > 0)
+			len += write(1, &result[--i], 1);
+	}
+	return (len);
+}
+
+int	ft_iputnbr_base(int64_t num, char *base, int radix)
+{
+	int		i;
+	int		len;
+	char	result[64];
 
 	len = 0;
 	if (num < 0)

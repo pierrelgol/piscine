@@ -13,8 +13,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-int	
-ft_printf(const char *fmt, ...)
+int	ft_printf(const char *fmt, ...)
 {
 	int		count;
 	va_list	args;
@@ -23,6 +22,8 @@ ft_printf(const char *fmt, ...)
 	count = 0;
 	va_start(args, fmt);
 	fsm = fsm_init(fmt);
+	if (fmt)
+		fsm.get_curr_state(FSM_START, *fmt);
 	while (*fsm.fmt)
 	{
 		fsm.curr = fsm.get_curr_state(fsm.curr, *fsm.fmt);
@@ -33,39 +34,6 @@ ft_printf(const char *fmt, ...)
 			count += (fsm.use_print_fmt(&args));
 		fsm.fmt++;
 	}
+	va_end(args);
 	return (count);
-}
-
-int	
-main(void)
-{
-	int	ch;
-	int	var;
-	int	count1;
-	int	count2;
-
-	ch = 65;
-	var = 12345678;
-	count1 = 0;
-	count2 = 0;
-	count1 += ft_printf("%c\n", ch);
-	count1 += ft_printf("%d\n", var);
-	count1 += ft_printf("%u\n", var);
-	count1 += ft_printf("%i\n", var);
-	count1 += ft_printf("%x\n", var);
-	count1 += ft_printf("%X\n", var);
-	count1 += ft_printf("%p\n", &ch);
-	count1 += ft_printf("%%\n");
-	count1 += ft_printf("%s\n", "end");
-	count2 += printf("%c\n", ch);
-	count2 += printf("%d\n", var);
-	count2 += printf("%u\n", var);
-	count2 += printf("%i\n", var);
-	count2 += printf("%x\n", var);
-	count2 += printf("%X\n", var);
-	count2 += printf("%p\n", &ch);
-	count2 += printf("%%\n");
-	count2 += printf("%s\n", "end");
-	printf("results :\nprintf = %d\nft_printf = %d", count2, count1);
-	return (0);
 }

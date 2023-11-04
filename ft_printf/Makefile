@@ -11,7 +11,8 @@
 # **************************************************************************** #
 
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -ggdb
+CFLAGS = -Wall -Wextra -Werror -O3
+LDFLAGS = -shared
 
 SRC    = ft_printf.c			\
 		 ft_fsm.c 				\
@@ -24,25 +25,35 @@ SRC    = ft_printf.c			\
 		 ft_print_fmt_lhex.c	\
 		 ft_print_fmt_uhex.c	\
 
+OBJDIR = obj
+OBJS   = $(addprefix $(OBJDIR)/, $(SRC:.c=.o))
+
 LIB    = ft_printf.h
-NAME   = printf
+STATIC_NAME = libftprintf.a
+SHARED_NAME = libftprintf.so
 
-.PHONY all:
+.PHONY: all clean fclean re
 
-all: $(NAME)
+all: $(STATIC_NAME) $(SHARED_NAME)
 
-$(NAME): $(SRC) $(LIB)
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+$(STATIC_NAME): $(OBJS)
+	ar rcs $(STATIC_NAME) $(OBJS)
+
+$(SHARED_NAME): $(OBJS)
+	$(CC) $(LDFLAGS) $(OBJS) -o $(SHARED_NAME)
+
+$(OBJDIR)/%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJS): | $(OBJDIR)
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
 clean:
-	rm -f $(NAME)
+	rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -f *.o $(NAME)
+	rm -f $(STATIC_NAME) $(SHARED_NAME)
 
-test:
-	./$(NAME)
-
-re: fclean all test
-
-
-
+re: fclean all

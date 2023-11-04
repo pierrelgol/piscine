@@ -12,11 +12,10 @@
 
 #include "ft_printf.h"
 
-int	
-ft_print_fmt_uhex(va_list *arg)
+int	ft_print_fmt_uhex(va_list *arg)
 {
-	uint64_t	lhex;
+	uint32_t	lhex;
 
-	lhex = va_arg(*arg, uint64_t);
-	return (_ft_putnbr_base(lhex, "0123456789ABCDEF", 16));
+	lhex = va_arg(*arg, uint32_t);
+	return (ft_uputnbr_base((uint32_t)lhex, "0123456789ABCDEF", 16));
 }

@@ -12,9 +12,11 @@
 
 #include "ft_printf.h"
 
-int	
-ft_print_fmt_ptr(va_list *arg)
+int	ft_print_fmt_ptr(va_list *arg)
 {
+	uint64_t	ptr;
+
 	write(1, "0x", 2);
-	return (2 + ft_print_fmt_lhex(arg));
+	ptr = va_arg(*arg, uint64_t);
+	return (2 + ft_uputnbr_base(ptr, "0123456789abcdef", 16));
 }

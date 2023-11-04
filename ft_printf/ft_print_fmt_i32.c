@@ -12,11 +12,10 @@
 
 #include "ft_printf.h"
 
-int	
-ft_print_fmt_i32(va_list *arg)
+int	ft_print_fmt_i32(va_list *arg)
 {
-	int	i32;
+	int32_t	i32;
 
-	i32 = va_arg(*arg, int);
-	return (_ft_putnbr_base(i32, "0123456789", 10));
+	i32 = va_arg(*arg, int32_t);
+	return (ft_iputnbr_base((int32_t)i32, "0123456789", 10));
 }

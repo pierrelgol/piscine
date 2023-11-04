@@ -12,11 +12,10 @@
 
 #include "ft_printf.h"
 
-int	
-ft_print_fmt_u32(va_list *arg)
+int	ft_print_fmt_u32(va_list *arg)
 {
-	unsigned int	u32;
+	uint32_t	u32;
 
-	u32 = va_arg(*arg, unsigned int);
-	return (_ft_putnbr_base(u32, "0123456789", 10));
+	u32 = va_arg(*arg, uint32_t);
+	return (ft_uputnbr_base((uint32_t)u32, "0123456789", 10));
 }
